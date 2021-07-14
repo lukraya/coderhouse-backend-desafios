@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
-const PORT = 8080;
 const apiRouter = express.Router();
+const PORT = 8080;
 
 let producto = require('./Productos');
   
@@ -10,13 +10,13 @@ app.use(express.urlencoded({extended: true}));
 app.use('/api', apiRouter);
 app.use('/static', express.static(__dirname + '/public'));
 
+
 apiRouter.get('/productos', (req, res)=>{
     res.send(producto.listarProductos)
 });
 
 apiRouter.post('/productos', (req, res)=>{
     let toAdd = req.body;
-    console.log(toAdd);
     let prod = producto.nuevoProd(toAdd);
     res.send(prod)
 });

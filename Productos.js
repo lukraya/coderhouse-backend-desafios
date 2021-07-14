@@ -2,18 +2,11 @@ class Producto {
     productos = [];
     id = 0;
 
-    nuevoProd(producto) {
-        let thumb;
-        if (producto.url == undefined) {
-            thumb = producto.thumbnail
-        } else {
-            thumb = producto.url
-        }
-
+    nuevoProd(producto) {        
         this.productos.push({
             title: producto.title,
             price: producto.price,
-            thumbnail: thumb,
+            thumbnail: producto.url,
             id: ++this.id
         });
 
