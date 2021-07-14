@@ -13,12 +13,15 @@ class Producto {
         return (this.productos[this.id - 1])
     }
 
-    filtrarId(id) {
-        if (this.productos[id-1] == undefined) {
+    mostrarProd(id) {
+        let prod = this.productos.find(producto =>{
+            return producto.id == id
+        });
+        if (prod == undefined) {
             return '{error: "Producto no encontrado."}'
         }
 
-        return this.productos[id-1]
+        return prod
     }
 
     get listarProductos() {
@@ -27,6 +30,21 @@ class Producto {
         }
 
         return this.productos
+    }
+
+    actualizarProducto(cambios, id) {
+        let indiceProd = this.productos.findIndex(prod=>{
+            return prod.id == id
+        })
+        let prodActualizado = {...cambios, id: id}
+        return this.productos[indiceProd] = prodActualizado;
+    }
+
+    eliminarProducto(id) {
+        let indiceProd = this.productos.findIndex(prod=>{
+            return prod.id == id
+        })
+        return this.productos.splice(indiceProd, 1)[0]
     }
 }
 
