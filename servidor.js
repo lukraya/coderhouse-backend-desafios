@@ -16,6 +16,7 @@ apiRouter.get('/productos', (req, res)=>{
 
 apiRouter.post('/productos', (req, res)=>{
     let toAdd = req.body;
+    console.log(toAdd);
     let prod = producto.nuevoProd(toAdd);
     res.send(prod)
 });
