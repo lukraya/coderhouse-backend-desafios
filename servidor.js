@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const apiRouter = express.Router();
+const handlebars = require('express-handlebars');
 const PORT = 8080;
 
 let producto = require('./Productos');
@@ -10,9 +11,24 @@ app.use(express.urlencoded({extended: true}));
 app.use('/api', apiRouter);
 //app.use('/static', express.static(__dirname + '/public'));
 
+//Set up de hbs
+app.engine("hbs",
+    handlebars({
+        extname: ".hbs",
+        defaultLayout: "index.hbs",
+        layoutsDir: __dirname + "/views/layouts",
+        partialsDir: __dirname + "/views/partials"
+}));
+app.set("view engine", "hbs");
+app.set("views", "./views");
+
+
 
 apiRouter.get('/productos', (req, res)=>{
-    res.send(producto.listarProductos)
+    //res.send(producto.listarProductos)
+    let productos = producto.listarProductos;
+    //console.log(productos)
+    res.render("productos", {productos: productos})
 });
 
 apiRouter.post('/productos', (req, res)=>{
