@@ -8,7 +8,7 @@ let producto = require('./Productos');
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use('/api', apiRouter);
-app.use('/static', express.static(__dirname + '/public'));
+//app.use('/static', express.static(__dirname + '/public'));
 
 
 apiRouter.get('/productos', (req, res)=>{
