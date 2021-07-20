@@ -31,10 +31,15 @@ apiRouter.get('/productos', (req, res)=>{
     res.render("productos", {productos: productos})
 });
 
+apiRouter.get('/carga', (req, res)=>{
+    res.render("formulario")
+})
+
 apiRouter.post('/productos', (req, res)=>{
     let toAdd = req.body;
-    let prod = producto.nuevoProd(toAdd);
-    res.send(prod)
+    /* let prod =  */producto.nuevoProd(toAdd);
+    //res.send(prod)
+    res.redirect('/api/carga')
 });
 
 apiRouter.get('/productos/:id', (req, res)=>{
