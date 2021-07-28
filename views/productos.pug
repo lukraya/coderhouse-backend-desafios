@@ -1,0 +1,19 @@
+html 
+    include includes/head 
+    body 
+        .well 
+            if prods.length
+                table.table 
+                    thead 
+                        tr 
+                            th Producto 
+                            th Precio 
+                            th Thumbnail 
+                    tbody 
+                        each val in prods
+                            tr 
+                                td=val.title  
+                                td=val.price 
+                                td=val.thumbnail 
+            else
+                h3 No hay productos
