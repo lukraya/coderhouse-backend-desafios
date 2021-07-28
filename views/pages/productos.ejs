@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+    <%- include('../partials/head'); %>
+</head>
+<body>
+    <div class="well">
+        <% if (productos.length) { %>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Thumbnail</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% productos.forEach((producto)=>{ %>
+                        <tr>
+                            <td><%= producto.title %></td>
+                            <td><%= producto.price %></td>
+                            <td><%= producto.thumbnail %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        <% } else{ %>
+            <h2>No hay productos</h2>
+        <% } %>
+    </div>    
+</body>
+</html>
