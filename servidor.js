@@ -23,11 +23,8 @@ app.set("view engine", "hbs");
 app.set("views", "./views");
 
 
-
 apiRouter.get('/productos', (req, res)=>{
-    //res.send(producto.listarProductos)
     let productos = producto.listarProductos;
-    //console.log(productos)
     res.render("productos", {productos: productos})
 });
 
@@ -37,8 +34,7 @@ apiRouter.get('/carga', (req, res)=>{
 
 apiRouter.post('/productos', (req, res)=>{
     let toAdd = req.body;
-    /* let prod =  */producto.nuevoProd(toAdd);
-    //res.send(prod)
+    producto.nuevoProd(toAdd);
     res.redirect('/api/carga')
 });
 
