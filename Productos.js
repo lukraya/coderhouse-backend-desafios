@@ -6,7 +6,7 @@ class Producto {
         this.productos.push({
             title: producto.title,
             price: producto.price,
-            thumbnail: producto.url,
+            thumbnail: producto.thumbnail,
             id: ++this.id
         });
 

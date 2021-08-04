@@ -7,10 +7,7 @@ const io = new Server(server)
 
 let PORT = 8080
 
-let productos = [
-    {title: "prod1", price: 100, thumbnail: "url1"},
-    {title: "prod2", price: 150, thumbnail: "url2"}
-]
+let productos = require('./Productos')
 
 app.use('/static', express.static('static'))
 
@@ -19,12 +16,14 @@ app.get('/', (req, res) => {
 })
 
 io.on('connection', (socket)=>{
-    console.log(`Se conectó el socket ${socket.id}`)
-    socket.emit('productos', productos)
+    //console.log(`Se conectó el socket ${socket.id}`)
+    socket.emit('productos', {productos: productos.listarProductos})
     socket.on('nuevo-producto', (producto)=>{
+        //console.log(productos.listarProductos)
         //console.log(`Nuevo producto: ${JSON.stringify(producto)}`)
-        productos.push(producto)
-        io.sockets.emit('enviar-producto', [producto])
+        productos.nuevoProd(producto)        
+        //console.log(productos.listarProductos)     
+        io.sockets.emit('enviar-producto', {productos: productos.listarProductos})
     })
 })
 
