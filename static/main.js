@@ -1,6 +1,36 @@
 let socket = io()
 
-let templateTabla = Handlebars.compile(`
+function enviarMensaje () {
+    //console.log($("#mail").val())
+    socket.emit('nuevo-mensaje', {
+        email: $("#email").val(),
+        mensaje: $("#mensaje").val()
+    })
+    return false
+}
+
+function renderMensajes (mensajes) {
+    //console.log(mensajes)
+    //let elHtml = template(mensajes)
+    let elHtml = mensajes.map((msj)=>{
+        return (`
+            <p><span class="email">${msj.email}:</span> <span class="fecha">[${msj.fecha}]</span> <span class="mensaje">${msj.mensaje}</span></p>
+        `)
+    })
+    //console.log(elHtml)
+    $("#mensajes").html(elHtml)
+}
+
+socket.on('mensajes', (data)=>{
+    renderMensajes(data)
+})
+
+socket.on('enviar-mensaje', (data)=>{
+    //console.log(data)
+    renderMensajes(data)
+})
+
+/* let templateTabla = Handlebars.compile(`
     <table class="table">
         <thead>
             <tr>
@@ -23,10 +53,9 @@ let templateTabla = Handlebars.compile(`
 
 let templateVacio = Handlebars.compile(`
     <p id="sinProd">No hay productos</p>
-`)
+`) */
 
 function enviarProducto () {
-    //console.log($("#title").val())
     socket.emit('nuevo-producto', {
         title: $("#title").val(),
         price: $("#price").val(),
@@ -35,8 +64,7 @@ function enviarProducto () {
     return false
 }
 
-function renderProductos (productos) {
-    //console.log(productos)
+/* function renderProductos (productos) {
     if (productos.length > 0) {
         let elHtml = templateTabla({productos: productos})
         $("#listado").html(elHtml)
@@ -44,15 +72,12 @@ function renderProductos (productos) {
         let elHtml = templateVacio()
         $("#listado").html(elHtml)
     }    
-}
+} */
 
-
-socket.on('productos', (data)=>{
-    //console.log(data)
+/* socket.on('productos', (data)=>{
     renderProductos(data.productos)
-})
+}) */
 
-socket.on('enviar-producto', (data)=>{
-    //console.log(data)
+/* socket.on('enviar-producto', (data)=>{
     renderProductos(data.productos)
-})
+}) */

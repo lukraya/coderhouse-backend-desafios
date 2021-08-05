@@ -4,10 +4,12 @@ const http = require('http')
 const server = http.createServer(app)
 const {Server} = require('socket.io')
 const io = new Server(server)
+const dayjs = require('dayjs')
 
 let PORT = 8080
 
 let productos = require('./Productos')
+let mensajes = []
 
 app.use('/static', express.static('static'))
 
@@ -16,15 +18,18 @@ app.get('/', (req, res) => {
 })
 
 io.on('connection', (socket)=>{
-    //console.log(`Se conectó el socket ${socket.id}`)
-    socket.emit('productos', {productos: productos.listarProductos})
-    socket.on('nuevo-producto', (producto)=>{
-        //console.log(productos.listarProductos)
-        //console.log(`Nuevo producto: ${JSON.stringify(producto)}`)
-        productos.nuevoProd(producto)        
-        //console.log(productos.listarProductos)     
-        io.sockets.emit('enviar-producto', {productos: productos.listarProductos})
+    socket.emit('mensajes', mensajes)
+    socket.on('nuevo-mensaje', (mensaje)=>{
+        mensaje.fecha = dayjs().format('DD/MM/YYYY HH:mm:ss')
+        mensajes.push(mensaje)
+        //console.log(mensajes)
+        io.sockets.emit('enviar-mensaje', mensajes)
     })
+    /* socket.emit('productos', {productos: productos.listarProductos})
+    socket.on('nuevo-producto', (producto)=>{
+        productos.nuevoProd(producto)     
+        io.sockets.emit('enviar-producto', {productos: productos.listarProductos})
+    }) */
 })
 
 server.listen(PORT, (err) => {

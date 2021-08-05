@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productos</title>
+    <link rel="stylesheet" href="/static/main.css">
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
@@ -19,8 +20,17 @@
         <input type="text" id="thumbnail" name="url" placeholder="URL de la imagen"><br>
         <button type="submit">Enviar</button>
     </form>
-    <div id="listado" class="well">
+    <h3>Mensajes</h3>
+    <div id="mensajes">
         
     </div>
+    <form onsubmit="return enviarMensaje(this)">
+        <input id="email" type="email" placeholder="juan@somemail.com"/> 
+        <input id="mensaje" type="text" placeholder="Mensaje a enviar"/>
+        <input type="submit"></input>
+    </form>
+    <!-- <div id="listado" class="well">
+        
+    </div> -->
 </body>
 </html>
