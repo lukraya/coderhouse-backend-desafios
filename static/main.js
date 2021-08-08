@@ -1,7 +1,6 @@
 let socket = io()
 
 function enviarMensaje () {
-    //console.log($("#mail").val())
     socket.emit('nuevo-mensaje', {
         email: $("#email").val(),
         mensaje: $("#mensaje").val()
@@ -10,14 +9,11 @@ function enviarMensaje () {
 }
 
 function renderMensajes (mensajes) {
-    //console.log(mensajes)
-    //let elHtml = template(mensajes)
     let elHtml = mensajes.map((msj)=>{
         return (`
             <p><span class="email">${msj.email}:</span> <span class="fecha">[${msj.fecha}]</span> <span class="mensaje">${msj.mensaje}</span></p>
         `)
     })
-    //console.log(elHtml)
     $("#mensajes").html(elHtml)
 }
 
@@ -26,11 +22,10 @@ socket.on('mensajes', (data)=>{
 })
 
 socket.on('enviar-mensaje', (data)=>{
-    //console.log(data)
     renderMensajes(data)
 })
 
-/* let templateTabla = Handlebars.compile(`
+let templateTabla = Handlebars.compile(`
     <table class="table">
         <thead>
             <tr>
@@ -53,7 +48,7 @@ socket.on('enviar-mensaje', (data)=>{
 
 let templateVacio = Handlebars.compile(`
     <p id="sinProd">No hay productos</p>
-`) */
+`)
 
 function enviarProducto () {
     socket.emit('nuevo-producto', {
@@ -64,7 +59,7 @@ function enviarProducto () {
     return false
 }
 
-/* function renderProductos (productos) {
+function renderProductos (productos) {
     if (productos.length > 0) {
         let elHtml = templateTabla({productos: productos})
         $("#listado").html(elHtml)
@@ -72,12 +67,12 @@ function enviarProducto () {
         let elHtml = templateVacio()
         $("#listado").html(elHtml)
     }    
-} */
+}
 
-/* socket.on('productos', (data)=>{
+socket.on('productos', (data)=>{
     renderProductos(data.productos)
-}) */
+})
 
-/* socket.on('enviar-producto', (data)=>{
+socket.on('enviar-producto', (data)=>{
     renderProductos(data.productos)
-}) */
+})

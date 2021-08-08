@@ -22,14 +22,13 @@ io.on('connection', (socket)=>{
     socket.on('nuevo-mensaje', (mensaje)=>{
         mensaje.fecha = dayjs().format('DD/MM/YYYY HH:mm:ss')
         mensajes.push(mensaje)
-        //console.log(mensajes)
         io.sockets.emit('enviar-mensaje', mensajes)
     })
-    /* socket.emit('productos', {productos: productos.listarProductos})
+    socket.emit('productos', {productos: productos.listarProductos})
     socket.on('nuevo-producto', (producto)=>{
         productos.nuevoProd(producto)     
         io.sockets.emit('enviar-producto', {productos: productos.listarProductos})
-    }) */
+    })
 })
 
 server.listen(PORT, (err) => {
